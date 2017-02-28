@@ -1,0 +1,69 @@
+<header class="page-header">
+  <h2>编辑房租</h2>
+</header>
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'commons/error_messages', target: @room_expense %>
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">房租信息</h2>
+      </header>
+      <div class="panel-body">
+        <%= form_for [@employee, @room_expense], html: { class: 'form-horizontal form-bordered' } do |f| %>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'room_expense.started_at' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <%= f.text_field :started_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
+            </div>
+            <label class="col-sm-2 control-label"><%= porto_arat 'room_expense.ended_at' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <%= f.text_field :ended_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'room_expense.rent' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :rent_yuan, class: 'form-control' %>
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :rent_dollar, class: 'form-control' %>
+                <span class="input-group-addon">美元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'room_expense.agency_fee' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :agency_fee_yuan, class: 'form-control' %>
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :agency_fee_dollar, class: 'form-control' %>
+                <span class="input-group-addon">美元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'room_expense.remarks' %></label>
+            <div class="col-sm-6">
+              <%= f.text_field :remarks, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12 text-center">
+              <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+              <%= link_to '返回', @room_expense.employee, class: 'btn btn-default' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

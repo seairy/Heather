@@ -1,0 +1,136 @@
+<header class="page-header">
+  <h2>创建教师</h2>
+</header>
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'commons/error_messages', target: @employee %>
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">教师信息</h2>
+      </header>
+      <div class="panel-body">
+        <%= form_for @employee, html: { class: 'form-horizontal form-bordered' } do |f| %>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.name' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <%= f.text_field :name, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.country' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <%= f.select :country_id, country_with_initial_options, { prompt: '请选择' }, data: { 'plugin-selectTwo' => 'true' }, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.title' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :title, :assistant %>
+                <label>助教</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :title, :instructor %>
+                <label>讲师</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :title, :associate_professor %>
+                <label>副教师</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :title, :professor %>
+                <label>教授</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :title, :not_now %>
+                <label class="text-danger">跳过，稍候创建</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.spouse' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :spouse, :unmarried %>
+                <label>未婚</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :spouse, :not_accompanied %>
+                <label>不随任</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :spouse, :accompanied %>
+                <label>随任</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :spouse, :not_now %>
+                <label class="text-danger">跳过，稍候创建</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.type' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :type, :instructor %>
+                <label>公派教师</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :type, :ci_instructor %>
+                <label>孔院教师</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :type, :ci_president %>
+                <label>孔院院长</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.domestic_organization' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <%= f.text_field :domestic_organization, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.foreign_organization' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <%= f.text_field :foreign_organization, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.departured_at' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <%= f.text_field :departured_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
+            </div>
+            <label class="col-sm-2 control-label"><%= porto_arat 'employee.returned_at' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <%= f.text_field :returned_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.subsidy' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :subsidy, value: 3000, class: 'form-control' %>
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+            <label class="col-sm-2 control-label"><%= porto_arat 'employee.household_allowance' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :household_allowance, value: 19500, class: 'form-control' %>
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12 text-center">
+              <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+              <%= link_to '返回', employees_path, class: 'btn btn-default' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

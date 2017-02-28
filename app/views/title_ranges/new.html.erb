@@ -1,0 +1,55 @@
+<header class="page-header">
+  <h2>创建职称信息</h2>
+</header>
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'commons/error_messages', target: @title_range %>
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">职称信息</h2>
+      </header>
+      <div class="panel-body">
+        <%= form_for [@employee, @title_range], html: { class: 'form-horizontal form-bordered' } do |f| %>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'title_range.type' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :assistant %>
+                <label>助教</label>
+              </div>
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :instructor %>
+                <label>讲师</label>
+              </div>
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :associate_professor %>
+                <label>副教师</label>
+              </div>
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :professor %>
+                <label>教授</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'title_range.started_at' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <%= f.text_field :started_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
+            </div>
+            <label class="col-sm-2 control-label"><%= porto_arat 'title_range.ended_at' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <%= f.text_field :ended_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="col-sm-12 text-center">
+              <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+              <%= link_to '返回', @employee, class: 'btn btn-default' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

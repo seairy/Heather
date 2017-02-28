@@ -1,0 +1,40 @@
+<header class="page-header">
+  <h2>教师列表</h2>
+</header>
+<div class="row">
+  <div class="col-md-12">
+    <%= porto_flash %>
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">教师列表</h2>
+      </header>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-hover mb-30">
+            <thead>
+              <tr>
+                <th><%= porto_arat 'employee.name' %></th>
+                <th><%= porto_arat 'employee.type' %></th>
+                <th><%= porto_arat 'employee.domestic_organization' %></th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @employees.each do |employee| %>
+              <tr>
+                <td><%= employee.name %></td>
+                <td><%= te_employee_type(employee.type) %></td>
+                <td><%= employee.domestic_organization %></td>
+                <td class="actions">
+                  <%= link_to raw('<i class="fa fa-file-text-o"></i>'), employee %>
+                  <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_employee_path(employee) %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

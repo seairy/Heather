@@ -1,0 +1,99 @@
+<header class="page-header">
+  <h2>创建旅费</h2>
+</header>
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'commons/error_messages', target: @travel_expense %>
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">旅费信息</h2>
+      </header>
+      <div class="panel-body">
+        <%= form_for [@employee, @travel_expense], html: { class: 'form-horizontal form-bordered' } do |f| %>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'travel_expense.role' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :role, :self %>
+                <label>本人</label>
+              </div>
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :role, :spouse %>
+                <label>配偶</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'travel_expense.type' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :vacation %>
+                <label>休假</label>
+              </div>
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :business %>
+                <label>因公</label>
+              </div>
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :private %>
+                <label>因私</label>
+              </div>
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :round %>
+                <label>赴离任</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'travel_expense.departured_at' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <%= f.text_field :departured_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'travel_expense.departure_flight_fare' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :departure_flight_fare_yuan, class: 'form-control' %>
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :departure_flight_fare_dollar, class: 'form-control' %>
+                <span class="input-group-addon">美元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'travel_expense.returned_at' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <%= f.text_field :returned_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'travel_expense.return_flight_fare' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :return_flight_fare_yuan, class: 'form-control' %>
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :return_flight_fare_dollar, class: 'form-control' %>
+                <span class="input-group-addon">美元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12 text-center">
+              <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+              <%= link_to '返回', @employee, class: 'btn btn-default' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

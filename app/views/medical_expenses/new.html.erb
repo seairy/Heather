@@ -1,0 +1,45 @@
+<header class="page-header">
+  <h2>创建医药费</h2>
+</header>
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'commons/error_messages', target: @medical_expense %>
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">医药费信息</h2>
+      </header>
+      <div class="panel-body">
+        <%= form_for [@employee, @medical_expense], html: { class: 'form-horizontal form-bordered' } do |f| %>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'medical_expense.type' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :type, :full %>
+                <label>全额报销</label>
+              </div>
+              <div class="radio-custom radio-primary">
+                <%= f.radio_button :type, :float %>
+                <label>非全额报销</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'medical_expense.amount' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <div class="input-group">
+                <%= f.text_field :amount, class: 'form-control' %>
+                <span class="input-group-addon">美元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12 text-center">
+              <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+              <%= link_to '返回', @employee, class: 'btn btn-default' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,351 @@
+<header class="page-header">
+  <h2>查看教师</h2>
+</header>
+<div class="row">
+  <div class="col-md-12">
+    <%= porto_flash %>
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">教师信息</h2>
+      </header>
+      <div class="panel-body">
+        <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.name' %></label>
+            <div class="col-sm-6">
+              <%= text_field_tag nil, @employee.name, readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.country' %></label>
+            <div class="col-sm-6">
+              <%= text_field_tag nil, @employee.country.name, readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.type' %></label>
+            <div class="col-sm-6">
+              <%= text_field_tag nil, te_employee_type(@employee.type), readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.domestic_organization' %></label>
+            <div class="col-sm-6">
+              <%= text_field_tag nil, @employee.domestic_organization, readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.foreign_organization' %></label>
+            <div class="col-sm-6">
+              <%= text_field_tag nil, @employee.foreign_organization, readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.departured_at' %></label>
+            <div class="col-sm-2">
+              <%= text_field_tag nil, porto_date(@employee.departured_at), readonly: true, class: 'form-control' %>
+            </div>
+            <label class="col-sm-2 control-label"><%= porto_arat 'employee.returned_at' %></label>
+            <div class="col-sm-2">
+              <%= text_field_tag nil, porto_date(@employee.returned_at), readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.actual_total_days' %></label>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= text_field_tag nil, @employee.actual_total_days, readonly: true, class: 'form-control' %>
+                <span class="input-group-addon">天</span>
+              </div>
+            </div>
+            <label class="col-sm-2 control-label"><%= porto_arat 'employee.working_total_months' %></label>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= text_field_tag nil, @employee.working_total_months, readonly: true, class: 'form-control' %>
+                <span class="input-group-addon">月</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.subsidy' %></label>
+            <div class="col-sm-2">
+              <%= text_field_tag nil, porto_price(@employee.subsidy), readonly: true, class: 'form-control' %>
+            </div>
+            <label class="col-sm-2 control-label"><%= porto_arat 'employee.household_allowance' %></label>
+            <div class="col-sm-2">
+              <%= text_field_tag nil, porto_price(@employee.household_allowance), readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.title_overview' %></label>
+            <% if @employee.title_ranges.blank? %>
+            <div class="col-sm-6">
+              <p class="form-control-static"><%= link_to '创建', new_employee_title_range_path(@employee), class: 'text-danger' %></p>
+            </div>
+            <% else %>
+            <div class="col-sm-6">
+              <%= percentage_of_ranges(@employee.percentage_of_ranges_as_array(:title), :title) %>
+            </div>
+            <div class="col-sm-2">
+              <%= link_to '<详细>', "#title_ranges_modal", class: 'modal-btn text-primary' %>
+            </div>
+            <% end %>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.spouse_overview' %></label>
+            <% if @employee.spouse_ranges.blank? %>
+            <div class="col-sm-6">
+              <p class="form-control-static"><%= link_to '创建', new_employee_spouse_range_path(@employee), class: 'text-danger' %></p>
+            </div>
+            <% else %>
+            <div class="col-sm-6">
+              <%= percentage_of_ranges(@employee.percentage_of_ranges_as_array(:spouse), :spouse) %>
+            </div>
+            <div class="col-sm-2">
+              <%= link_to '<详细>', "#spouse_ranges_modal", class: 'modal-btn text-primary' %>
+            </div>
+            <% end %>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.rate_of_exchange' %></label>
+            <div class="col-sm-2">
+              <%= text_field_tag nil, @employee.rate_of_exchange, readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+        <%= link_to '返回', employees_path, class: 'btn btn-default' %>&nbsp;
+        <div class="btn-group">
+          <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary dropdown-toggle" data-toggle="dropdown">操作 <span class="caret"></span></button>
+          <ul class="dropdown-menu" role="menu">
+            <li><%= link_to '编辑', edit_employee_path(@employee) %></li>
+            <li><%= link_to '删除', @employee, method: :delete, data: { confirm: '确定要删除吗？' } %></li>
+            <li class="divider"></li>
+            <li><%= link_to '工资单', payroll_employee_path(@employee) %></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">旅费列表</h2>
+      </header>
+      <div class="panel-body">
+        <% if @employee.travel_expenses.blank? %>
+        <p>无任何旅费记录</p>
+        <% else %>
+        <div class="table-responsive">
+          <table class="table table-striped mb-none">
+            <thead>
+              <tr>
+                <th><%= porto_arat 'travel_expense.type' %></th>
+                <th><%= porto_arat 'travel_expense.departured_at' %></th>
+                <th><%= porto_arat 'travel_expense.departure_flight_fare' %></th>
+                <th><%= porto_arat 'travel_expense.returned_at' %></th>
+                <th><%= porto_arat 'travel_expense.return_flight_fare' %></th>
+                <th><%= porto_arat 'travel_expense.departed_days' %></th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @employee.travel_expenses.each do |travel_expense| %>
+              <tr>
+                <td><%= te_travel_expense_type(travel_expense.type) %></td>
+                <td><%= porto_date(travel_expense.departured_at) %></td>
+                <td><%= porto_price(travel_expense.departure_flight_fare, travel_expense.departure_flight_fare_currency) %></td>
+                <td><%= porto_date(travel_expense.returned_at) %></td>
+                <td><%= porto_price(travel_expense.return_flight_fare, travel_expense.return_flight_fare_currency) %></td>
+                <td><%= travel_expense.departed_days %>天</td>
+                <td class="actions">
+                  <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_travel_expense_path(travel_expense) %>
+                  <%= link_to raw('<i class="fa fa-trash-o"></i>'), travel_expense, method: :delete, data: { confirm: '确定要删除吗？' } %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+        <%= link_to '创建旅费', new_employee_travel_expense_path(@employee), class: 'btn btn-primary' %>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">房租列表</h2>
+      </header>
+      <div class="panel-body">
+        <% if @employee.room_expenses.blank? %>
+        <p>无任何房租记录</p>
+        <% else %>
+        <div class="table-responsive">
+          <table class="table table-striped mb-none">
+            <thead>
+              <tr>
+                <th><%= porto_arat 'room_expense.started_at' %></th>
+                <th><%= porto_arat 'room_expense.ended_at' %></th>
+                <th><%= porto_arat 'room_expense.rent' %></th>
+                <th><%= porto_arat 'room_expense.agency_fee' %></th>
+                <th><%= porto_arat 'room_expense.remarks' %></th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @employee.room_expenses.each do |room_expense| %>
+              <tr>
+                <td><%= porto_date(room_expense.started_at) %></td>
+                <td><%= porto_date(room_expense.ended_at) %></td>
+                <td><%= porto_price(room_expense.rent, room_expense.rent_currency) %></td>
+                <td><%= porto_price(room_expense.agency_fee, room_expense.agency_fee_currency) %></td>
+                <td>
+                  <% if room_expense.remarks.blank? %>
+                  -
+                  <% else %>
+                  <a href="javascript: return false;" data-toggle="popover" data-container="body" data-placement="top" title="备注" data-content="<%= room_expense.remarks%>">查看</a>
+                  <% end %>
+                </td>
+                <td class="actions">
+                  <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_room_expense_path(room_expense) %>
+                  <%= link_to raw('<i class="fa fa-trash-o"></i>'), room_expense, method: :delete, data: { confirm: '确定要删除吗？' } %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+        <%= link_to '创建房租', new_employee_room_expense_path(@employee), class: 'btn btn-primary' %>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">医药费列表</h2>
+      </header>
+      <div class="panel-body">
+        <% if @employee.medical_expenses.blank? %>
+        <p>无任何医药费记录</p>
+        <% else %>
+        <div class="table-responsive">
+          <table class="table table-striped mb-none">
+            <thead>
+              <tr>
+                <th><%= porto_arat 'medical_expense.type' %></th>
+                <th><%= porto_arat 'medical_expense.amount' %></th>
+                <th><%= porto_arat 'medical_expense.expense_amount' %></th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @employee.medical_expenses.each do |medical_expense| %>
+              <tr>
+                <td><%= te_medical_expense_type(medical_expense.type) %></td>
+                <td><%= porto_price(medical_expense.amount, :dollar) %></td>
+                <td><%= porto_price(medical_expense.amount_of_reimbursement, :dollar) %></td>
+                <td class="actions">
+                  <%= link_to raw('<i class="fa fa-file-text-o"></i>'), medical_expense %>
+                  <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_medical_expense_path(medical_expense) %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+        <%= link_to '创建医药费', new_employee_medical_expense_path(@employee), class: 'btn btn-primary' %>
+      </div>
+    </section>
+  </div>
+</div>
+<div id="title_ranges_modal" class="modal-block modal-block-primary mfp-hide">
+  <section class="panel">
+    <header class="panel-heading">
+      <h2 class="panel-title">职称信息</h2>
+    </header>
+    <div class="panel-body">
+      <div class="timeline timeline-simple changelog">
+        <div class="tm-body">
+          <ol class="tm-items">
+            <% @employee.percentage_of_ranges_as_array(:title).each do |range| %>
+            <li>
+              <div class="tm-box">
+                <h4><%= range[:type] == :empty ? '空' : te_employee_title(range[:type]) %></h4> – <span class="release-date"><%= range[:days] %>天</span>
+                <p><%= range[:started_at] %> 至 <%= range[:ended_at] %></p>
+              </div>
+            </li>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <footer class="panel-footer">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <%= link_to '创建', new_employee_title_range_path(@employee), class: 'btn btn-primary' %>&nbsp;
+          <%= link_to '重置', truncate_employee_title_ranges_path(@employee), method: :delete, data: { confirm: '确定要重置吗？' }, class: 'btn btn-danger' %>&nbsp;
+          <button class="btn btn-default modal-dismiss">关闭</button>
+        </div>
+      </div>
+    </footer>
+  </section>
+</div>
+<div id="spouse_ranges_modal" class="modal-block modal-block-primary mfp-hide">
+  <section class="panel">
+    <header class="panel-heading">
+      <h2 class="panel-title">配偶信息</h2>
+    </header>
+    <div class="panel-body">
+      <div class="timeline timeline-simple changelog">
+        <div class="tm-body">
+          <ol class="tm-items">
+            <% @employee.percentage_of_ranges_as_array(:spouse).each do |range| %>
+            <li>
+              <div class="tm-box">
+                <h4><%= range[:type] == :empty ? '空' : te_employee_spouse(range[:type]) %></h4> – <span class="release-date"><%= range[:days] %>天</span>
+                <p><%= range[:started_at] %> 至 <%= range[:ended_at] %></p>
+              </div>
+            </li>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <footer class="panel-footer">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <%= link_to '创建', new_employee_spouse_range_path(@employee), class: 'btn btn-primary' %>&nbsp;
+          <%= link_to '重置', truncate_employee_spouse_ranges_path(@employee), method: :delete, data: { confirm: '确定要重置吗？' }, class: 'btn btn-danger' %>&nbsp;
+          <button class="btn btn-default modal-dismiss">关闭</button>
+        </div>
+      </div>
+    </footer>
+  </section>
+</div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function(){
+      $('.modal-btn').magnificPopup({
+        type: 'inline',
+        preloader: false,
+        modal: true
+      });
+    });
+  </script>
+<% end %>

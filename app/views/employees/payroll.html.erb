@@ -1,0 +1,83 @@
+<header class="page-header">
+  <h2>查看工资单</h2>
+</header>
+<div class="row">
+  <div class="col-md-12">
+    <%= porto_flash %>
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">工资信息</h2>
+      </header>
+      <div class="panel-body">
+        <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.name' %></label>
+            <div class="col-sm-6">
+              <%= text_field_tag nil, @employee.name, readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.salary' %></label>
+            <div class="col-sm-6">
+              <%= statement(@employee.salary_statement) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.spouse_subsidy' %></label>
+            <div class="col-sm-6">
+              <%= statement(@employee.spouse_subsidy_statement) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.travel_subsidy' %></label>
+            <div class="col-sm-6">
+              <%= statement(@employee.travel_subsidy_statement) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.country_subsidy' %></label>
+            <div class="col-sm-6">
+              <%= statement(@employee.country_subsidy_statement) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.salary_deduction' %></label>
+            <div class="col-sm-6">
+              <%= statement(@employee.salary_deduction_statement) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.travel_subsidy_deduction' %></label>
+            <div class="col-sm-6">
+              <%= statement(@employee.travel_subsidy_deduction_statement) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.country_subsidy_deduction' %></label>
+            <div class="col-sm-6">
+              <%= statement(@employee.country_subsidy_deduction_statement) %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.travel_reimbursement' %></label>
+            <div class="col-sm-6">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.room_reimbursement' %></label>
+            <div class="col-sm-6">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.medical_reimbursement' %></label>
+            <div class="col-sm-6">
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+        <%= link_to '返回', @employee, class: 'btn btn-default' %>&nbsp;
+      </div>
+    </section>
+  </div>
+</div>

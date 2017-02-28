@@ -1,0 +1,51 @@
+<header class="page-header">
+  <h2>创建配偶</h2>
+</header>
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'commons/error_messages', target: @spouse_range %>
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">配偶信息</h2>
+      </header>
+      <div class="panel-body">
+        <%= form_for [@employee, @spouse_range], html: { class: 'form-horizontal form-bordered' } do |f| %>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'spouse_range.type' %> <span class="required">*</span></label>
+            <div class="col-sm-6">
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :unmarried %>
+                <label>未婚</label>
+              </div>
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :not_accompanied %>
+                <label>不随任</label>
+              </div>
+              <div class="radio-inline radio-custom radio-primary">
+                <%= f.radio_button :type, :accompanied %>
+                <label>随任</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'spouse_range.started_at' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <%= f.text_field :started_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
+            </div>
+            <label class="col-sm-2 control-label"><%= porto_arat 'spouse_range.ended_at' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <%= f.text_field :ended_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="col-sm-12 text-center">
+              <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+              <%= link_to '返回', @employee, class: 'btn btn-default' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>
