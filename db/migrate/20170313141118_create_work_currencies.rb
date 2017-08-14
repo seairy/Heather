@@ -1,4 +1,4 @@
-class CreateWorkCurrencies < ActiveRecord::Migration
+class CreateWorkCurrencies < ActiveRecord::Migration[5.0]
   def change
     create_table :work_currencies do |t|
       t.references :administrator, null: false

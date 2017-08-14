@@ -1,4 +1,4 @@
-class CreateTitleRanges < ActiveRecord::Migration
+class CreateTitleRanges < ActiveRecord::Migration[5.0]
   def change
     create_table :title_ranges do |t|
       t.references :employee, null: false

@@ -1,4 +1,4 @@
-class CreateFares < ActiveRecord::Migration
+class CreateFares < ActiveRecord::Migration[5.0]
   def change
     create_table :fares do |t|
       t.references :currency, null: false

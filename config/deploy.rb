@@ -1,4 +1,4 @@
-lock '3.6.1'
+lock '3.9.0'
 
 set :scm, :git
 set :application, 'Okra'

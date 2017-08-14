@@ -1,4 +1,4 @@
-class CreateTravelSubsidyPolicies < ActiveRecord::Migration
+class CreateTravelSubsidyPolicies < ActiveRecord::Migration[5.0]
   def change
     create_table :travel_subsidy_policies do |t|
       t.integer :level, limit: 1, null: false
