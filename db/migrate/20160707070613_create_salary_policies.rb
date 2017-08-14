@@ -1,4 +1,4 @@
-class CreateSalaryPolicies < ActiveRecord::Migration
+class CreateSalaryPolicies < ActiveRecord::Migration[5.0]
   def change
     create_table :salary_policies do |t|
       t.string :type_cd, limit: 20, null: false

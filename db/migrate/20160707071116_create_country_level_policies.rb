@@ -1,4 +1,4 @@
-class CreateCountryLevelPolicies < ActiveRecord::Migration
+class CreateCountryLevelPolicies < ActiveRecord::Migration[5.0]
   def change
     create_table :country_level_policies do |t|
       t.references :country, null: false

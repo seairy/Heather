@@ -1,4 +1,4 @@
-class CreateMedicalExpenses < ActiveRecord::Migration
+class CreateMedicalExpenses < ActiveRecord::Migration[5.0]
   def change
     create_table :medical_expenses do |t|
       t.references :employee, null: false

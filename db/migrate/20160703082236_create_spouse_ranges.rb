@@ -1,4 +1,4 @@
-class CreateSpouseRanges < ActiveRecord::Migration
+class CreateSpouseRanges < ActiveRecord::Migration[5.0]
   def change
     create_table :spouse_ranges do |t|
       t.references :employee, null: false

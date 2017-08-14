@@ -1,4 +1,4 @@
-class CreateSpouseSubsidyPolicies < ActiveRecord::Migration
+class CreateSpouseSubsidyPolicies < ActiveRecord::Migration[5.0]
   def change
     create_table :spouse_subsidy_policies do |t|
       t.string :type_cd, limit: 20, null: false

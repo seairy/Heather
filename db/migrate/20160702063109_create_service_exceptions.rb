@@ -1,4 +1,4 @@
-class CreateServiceExceptions < ActiveRecord::Migration
+class CreateServiceExceptions < ActiveRecord::Migration[5.0]
   def change
     create_table :service_exceptions do |t|
       t.references :administrator, null: false
