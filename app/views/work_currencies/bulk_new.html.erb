@@ -1,0 +1,35 @@
+<header class="page-header">
+  <h2>设置工作货币</h2>
+</header>
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'commons/error_messages', target: @custom_form %>
+    <section class="panel">
+      <header class="panel-heading">
+        <h2 class="panel-title">货币列表</h2>
+      </header>
+      <%= form_for [@custom_form], url: bulk_create_work_currencies_path, html: { class: 'form-horizontal form-bordered' } do |f| %>
+        <div class="panel-body">
+          <table class="table table-hover">
+            <tbody>
+              <% Currency.important.each do |currency| %>
+              <tr>
+                <td>
+                  <div class="checkbox-custom checkbox-primary">
+                    <%= f.check_box :currency_ids, { multiple: true }, currency.id, nil %>
+                    <label for="bulk_create_work_currency_currency_ids_<%= currency.id %>"><%= currency.name %></label>
+                  </div>
+                </td>
+                <td><%= currency.description %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-footer">
+          <%= f.submit '提交', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </section>
+  </div>
+</div>

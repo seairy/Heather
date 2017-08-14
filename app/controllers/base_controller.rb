@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class BaseController < ApplicationController
   before_action :authenticate
+  before_action :check_if_work_currencies_empty
 
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, with: lambda { |exception| render_error 500, exception }
@@ -15,9 +16,13 @@ class BaseController < ApplicationController
     
     def authenticate
       begin
-        @administrator = Administrator.find(session['administrator'].try(:'[]', 'id'))
+        @current_administrator = Administrator.find(session['administrator'].try(:'[]', 'id'))
       rescue ActiveRecord::RecordNotFound
         redirect_to sign_in_path 
       end
+    end
+
+    def check_if_work_currencies_empty
+      redirect_to bulk_new_work_currencies_path if @current_administrator.work_currencies.blank?
     end
 end

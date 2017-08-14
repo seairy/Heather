@@ -77,6 +77,16 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.teaching_material_subsidy' %></label>
+            <div class="col-sm-2">
+              <%= text_field_tag nil, porto_price(@employee.teaching_material_subsidy), readonly: true, class: 'form-control' %>
+            </div>
+            <label class="col-sm-2 control-label"><%= porto_arat 'employee.delay_subsidy' %></label>
+            <div class="col-sm-2">
+              <%= text_field_tag nil, porto_price(@employee.delay_subsidy), readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
             <label class="col-sm-3 control-label"><%= porto_arat 'employee.title_overview' %></label>
             <% if @employee.title_ranges.blank? %>
             <div class="col-sm-6">
@@ -160,7 +170,13 @@
                 <td><%= porto_price(travel_expense.departure_flight_fare, travel_expense.departure_flight_fare_currency) %></td>
                 <td><%= porto_date(travel_expense.returned_at) %></td>
                 <td><%= porto_price(travel_expense.return_flight_fare, travel_expense.return_flight_fare_currency) %></td>
-                <td><%= travel_expense.departed_days %>天</td>
+                <td>
+                  <% if travel_expense.type_round? %>
+                  -
+                  <% else %>
+                  <%= travel_expense.departed_days %>天
+                  <% end %>
+                </td>
                 <td class="actions">
                   <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_travel_expense_path(travel_expense) %>
                   <%= link_to raw('<i class="fa fa-trash-o"></i>'), travel_expense, method: :delete, data: { confirm: '确定要删除吗？' } %>

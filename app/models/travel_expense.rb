@@ -2,6 +2,8 @@ class TravelExpense < ActiveRecord::Base
   as_enum :role, [:self, :spouse], prefix: true, map: :string
   as_enum :type, [:vacation, :business, :private, :round], prefix: true, map: :string
   belongs_to :employee
+  belongs_to :departure_flight_fare, class_name: 'Fare'
+  belongs_to :return_flight_fare, class_name: 'Fare'
   validates :departured_at, presence: true
   validates :returned_at, presence: true
   validates :departure_flight_fare_yuan, numericality: { less_than: 99999 }, unless: 'departure_flight_fare_yuan.blank?'
@@ -13,6 +15,7 @@ class TravelExpense < ActiveRecord::Base
     :departure_flight_fare_must_presence_only_one,
     :return_flight_fare_must_presence_at_least_one,
     :return_flight_fare_must_presence_only_one,
+    :type_round_must_be_unique
 
   def departure_flight_fare
     self.departure_flight_fare_yuan || self.departure_flight_fare_dollar
@@ -31,7 +34,7 @@ class TravelExpense < ActiveRecord::Base
   end
 
   def departed_days
-    (self.returned_at - self.departured_at).to_i + 1
+    (self.returned_at - self.departured_at).to_i + 1 unless self.type_round?
   end
 
   protected
@@ -53,5 +56,9 @@ class TravelExpense < ActiveRecord::Base
 
     def return_flight_fare_must_presence_only_one
       errors.add(:base, '只能填写一种返程航班费用') if !self.return_flight_fare_yuan.blank? and !self.return_flight_fare_dollar.blank?
+    end
+
+    def type_round_must_be_unique
+      errors.add(:base, '已经存在赴离任类型的旅费记录') if self.type_round? and !self.employee.travel_expenses.type_rounds.blank?
     end
 end

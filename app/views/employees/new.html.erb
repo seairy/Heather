@@ -27,23 +27,23 @@
             <div class="col-sm-6">
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :title, :assistant %>
-                <label>助教</label>
+                <label for="employee_title_assistant">助教</label>
               </div>
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :title, :instructor %>
-                <label>讲师</label>
+                <label for="employee_title_instructor">讲师</label>
               </div>
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :title, :associate_professor %>
-                <label>副教师</label>
+                <label for="employee_title_associate_professor">副教师</label>
               </div>
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :title, :professor %>
-                <label>教授</label>
+                <label for="employee_title_professor">教授</label>
               </div>
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :title, :not_now %>
-                <label class="text-danger">跳过，稍候创建</label>
+                <label for="employee_title_not_now" class="text-danger">跳过，稍候创建</label>
               </div>
             </div>
           </div>
@@ -52,19 +52,19 @@
             <div class="col-sm-6">
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :spouse, :unmarried %>
-                <label>未婚</label>
+                <label for="employee_spouse_unmarried">未婚</label>
               </div>
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :spouse, :not_accompanied %>
-                <label>不随任</label>
+                <label for="employee_spouse_not_accompanied">不随任</label>
               </div>
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :spouse, :accompanied %>
-                <label>随任</label>
+                <label for="employee_spouse_accompanied">随任</label>
               </div>
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :spouse, :not_now %>
-                <label class="text-danger">跳过，稍候创建</label>
+                <label for="employee_spouse_not_now" class="text-danger">跳过，稍候创建</label>
               </div>
             </div>
           </div>
@@ -73,15 +73,15 @@
             <div class="col-sm-6">
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :type, :instructor %>
-                <label>公派教师</label>
+                <label for="employee_type_instructor">公派教师</label>
               </div>
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :type, :ci_instructor %>
-                <label>孔院教师</label>
+                <label for="employee_type_ci_instructor">孔院教师</label>
               </div>
               <div class="radio-custom radio-primary">
                 <%= f.radio_button :type, :ci_president %>
-                <label>孔院院长</label>
+                <label for="employee_type_ci_president">孔院院长</label>
               </div>
             </div>
           </div>
@@ -119,6 +119,22 @@
             <div class="col-sm-2">
               <div class="input-group">
                 <%= f.text_field :household_allowance, value: 19500, class: 'form-control' %>
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= porto_arat 'employee.teaching_material_subsidy' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :teaching_material_subsidy, value: 0, class: 'form-control' %>
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+            <label class="col-sm-2 control-label"><%= porto_arat 'employee.delay_subsidy' %> <span class="required">*</span></label>
+            <div class="col-sm-2">
+              <div class="input-group">
+                <%= f.text_field :delay_subsidy, value: 0, class: 'form-control' %>
                 <span class="input-group-addon">元</span>
               </div>
             </div>

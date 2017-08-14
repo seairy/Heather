@@ -52,38 +52,14 @@
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label"><%= porto_arat 'travel_expense.departure_flight_fare' %> <span class="required">*</span></label>
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.text_field :departure_flight_fare_yuan, class: 'form-control' %>
-                <span class="input-group-addon">元</span>
-              </div>
-            </div>
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.text_field :departure_flight_fare_dollar, class: 'form-control' %>
-                <span class="input-group-addon">美元</span>
-              </div>
+            <div class="col-sm-6">
+              <%= fare_tag :departure_flight_fare %>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-3 control-label"><%= porto_arat 'travel_expense.returned_at' %> <span class="required">*</span></label>
             <div class="col-sm-6">
               <%= f.text_field :returned_at, data: { 'plugin-masked-input' => true, 'input-mask' => '9999/99/99' }, placeholder: "YYYY/MM/DD", class: 'form-control' %>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label"><%= porto_arat 'travel_expense.return_flight_fare' %> <span class="required">*</span></label>
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.text_field :return_flight_fare_yuan, class: 'form-control' %>
-                <span class="input-group-addon">元</span>
-              </div>
-            </div>
-            <div class="col-sm-2">
-              <div class="input-group">
-                <%= f.text_field :return_flight_fare_dollar, class: 'form-control' %>
-                <span class="input-group-addon">美元</span>
-              </div>
             </div>
           </div>
           <div class="form-group">

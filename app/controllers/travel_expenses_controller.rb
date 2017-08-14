@@ -34,6 +34,11 @@ class TravelExpensesController < BaseController
     end
   end
 
+  def destroy
+    @travel_expense.destroy
+    redirect_to @travel_expense.employee, notice: '操作成功'
+  end
+
   protected
     def travel_expense_params
       params.require(:travel_expense).permit!

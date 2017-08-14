@@ -39,8 +39,8 @@
               <figure class="profile-picture">
                 <%= image_tag('porto/portrait-default.png') %>
               </figure>
-              <div class="profile-info" data-lock-name="<%= @administrator.name %>">
-                <span class="name"><%= @administrator.name %></span>
+              <div class="profile-info" data-lock-name="<%= @current_administrator.name %>">
+                <span class="name"><%= @current_administrator.name %></span>
                 <span class="role">管理员</span>
               </div>
               <i class="fa custom-caret"></i>
@@ -123,5 +123,19 @@
     </section>
     <%= javascript_include_tag 'porto', 'data-turbolinks-track' => true %>
     <%= content_for :javascript %>
+    <script>
+      jQuery(document).ready(function() {
+        $('.btn-modal').magnificPopup({
+          type: 'inline',
+          preloader: false,
+          modal: true
+        });
+          
+        $(document).on('click', '.modal-dismiss', function (e) {
+          e.preventDefault();
+          $.magnificPopup.close();
+        });
+      });
+    </script>
   </body>
 </html>

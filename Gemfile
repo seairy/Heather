@@ -1,13 +1,14 @@
 source 'https://ruby.taobao.org'
 
-gem 'rails', '4.2.0'
-gem 'mysql2', '~> 0.3.18'
+gem 'rails', '5.1.0'
+gem 'mysql2'
+gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
+gem 'coffee-rails', '~> 4.2'
+gem 'turbolinks', '~> 5'
+gem 'jbuilder', '~> 2.5'
+gem 'listen'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'cancancan'
@@ -25,18 +26,12 @@ gem 'rufus-scheduler'
 gem 'faker'
 
 group :development do
-  gem 'byebug'
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '>= 3.3.0'
   gem 'spring'
-  gem 'quiet_assets'
-  gem 'capistrano-rails'
-  gem 'unicorn'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-group :test do
-  gem 'rspec-rails'
-  gem 'database_cleaner'
-end
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :doc do
   gem 'sdoc', require: false

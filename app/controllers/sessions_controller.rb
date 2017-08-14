@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class SessionsController < BaseController
-  skip_before_filter :authenticate
+  skip_before_action :authenticate
+  skip_before_action :check_if_work_currencies_empty
   layout null: true
 
   def new

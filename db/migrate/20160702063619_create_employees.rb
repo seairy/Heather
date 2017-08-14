@@ -10,6 +10,8 @@ class CreateEmployees < ActiveRecord::Migration
       t.date :returned_at, null: false
       t.decimal :subsidy, precision: 7, scale: 2, null: false
       t.decimal :household_allowance, precision: 7, scale: 2, null: false
+      t.decimal :teaching_material_subsidy, precision: 7, scale: 2, null: false
+      t.decimal :delay_subsidy, precision: 7, scale: 2, null: false
       t.decimal :rate_of_exchange, precision: 7, scale: 2
       t.timestamps null: false
     end

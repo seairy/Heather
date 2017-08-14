@@ -29,6 +29,7 @@ module ApplicationHelper
     when :vacation then '休假'
     when :business then '因公'
     when :private then '因私'
+    when :round then '赴离任'
     end
   end
 
@@ -101,5 +102,110 @@ module ApplicationHelper
     result << "<button type=\"button\" class=\"btn btn-xs btn-success mr-xs mt-xs\">#{porto_price(sum.round)}</button>"
     result << '</div>'
     raw(result.join)
+  end
+
+  def fare_tag name
+    first_currency = @current_administrator.work_currencies.first.currency
+    result = ['<div class="input-group">']
+    result << '<input type="text" class="form-control">'
+    result << '<div class="input-group-btn">'
+    result << "<input type=\"hidden\" name=\"#{name}[currency_id]\" value=\"#{first_currency.id}\" />"
+    result << "<button type=\"button\" tabindex=\"-1\" id=\"#{name}_switch_btn\" class=\"btn btn-primary\">#{first_currency.name}</button>"
+    result << '<button type="button" tabindex="-1" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">'
+    result << '<span class="caret"></span>'
+    result << '</button>'
+    result << '<ul role="menu" class="dropdown-menu pull-right">'
+    @current_administrator.work_local_currencies.each do |work_local_currency|
+      result << "<li>#{link_to("换算为 #{work_local_currency.currency.name}", 'javascript:;', data: { 'currency-id': work_local_currency.currency.id, 'currency-name': work_local_currency.currency.name }, class: "#{name}_exchange_btn")}</li>"
+    end
+    result << '<li class="divider"></li>'
+    result << "<li><a href=\"#modal_#{name}\" class=\"btn-modal\">换算其它币种</a></li>"
+    result << "<li><a href=\"javascript:;\" id=\"#{name}_cancel_exchange_btn\" class=\"text-danger\">取消换算</a></li>"
+    result << '</ul>'
+    result << '</div>'
+    result << '</div>'
+    result << "<div id=\"#{name}_exchange_group\" class=\"collapse\">"
+    result << "<div class=\"input-group mt-md\">"
+    result << '<span class="input-group-addon">汇率</span>'
+    result << "<input type=\"text\" name=\"#{name}[rate_of_exchange]\" class=\"form-control\">"
+    result << '</div>'
+    result << "<div id=\"#{name}_exchange_group\" class=\"input-group mt-md collapse\">"
+    result << '<span class="input-group-addon">换算</span>'
+    result << "<input type=\"text\" name=\"#{name}[local_amount]\" class=\"form-control\">"
+    result << "<span id=\"#{name}_local_currency_name\" class=\"input-group-addon\"></span>"
+    result << '</div>'
+    result << "</div>"
+    result << "<div id=\"modal_#{name}\" class=\"modal-block modal-block-lg modal-block-primary mfp-hide\">"
+    result << '<section class="panel">'
+    result << '<header class="panel-heading">'
+    result << '<h2 class="panel-title">选择货币</h2>'
+    result << '</header>'
+    result << '<div class="panel-body">'
+    result << '<div class="row">'
+    Currency.all.map do |currency|
+      [currency.name.first, currency]
+    end.flatten.uniq.in_groups_of(17).each do |array|
+      result << '<div class="col-xs-1">'
+      result << '<div class="row">'
+      array.each do |abbr_or_currency|
+        if abbr_or_currency.class == String
+          result << "<div class=\"col-xs-12 text-center\"><span class=\"label label-primary text-monospace\">#{abbr_or_currency}</span></div>"
+        else
+          result << "<div class=\"col-xs-12 text-center\"><button data-currency-id=\"#{abbr_or_currency.id}\" data-currency-name=\"#{abbr_or_currency.name}\" class=\"btn btn-default btn-xs text-monospace #{name}_modal_exchange_btn\">#{abbr_or_currency.name}</button></div>" if abbr_or_currency.present?
+        end
+      end
+      result << '</div>'
+      result << '</div>'
+    end
+    result << '</div>'
+    result << '</div>'
+    result << '<footer class="panel-footer">'
+    result << '<div class="row">'
+    result << '<div class="col-md-12 text-right">'
+    result << '<button class="btn btn-default modal-dismiss">取消</button>'
+    result << '</div>'
+    result << '</div>'
+    result << '</footer>'
+    result << '</section>'
+    result << '</div>'
+    result << content_for(:javascript) do
+      raw("<script>
+        jQuery(document).ready(function() {
+          var #{name}_work_currencies = new Object();\n" +
+          @current_administrator.work_currencies.map do |work_currency|
+            "#{name}_work_currencies[#{work_currency.currency.id}] = '#{work_currency.currency.name}';"
+          end.join("\n") +
+          "\nvar #{name}_current_work_currency_id = '#{first_currency.id}';
+          $('##{name}_switch_btn').on('click', function() {
+            var keys = Object.keys(#{name}_work_currencies), i = keys.indexOf(#{name}_current_work_currency_id);
+            var currency_id = '', currency_name = '';
+            if (i + 1 == keys.length) {
+              currency_id = '#{first_currency.id}';
+              currency_name = '#{first_currency.name}';
+            } else {
+              currency_id = keys[i + 1];
+              currency_name = #{name}_work_currencies[keys[i + 1]];
+            }
+            #{name}_current_work_currency_id = currency_id;
+            $('input[name=\"#{name}[currency_id]\"]').val(currency_id);
+            $(this).html(currency_name);
+          });
+          $('.#{name}_exchange_btn').on('click', function() {
+            $('##{name}_exchange_group').show();
+            $('##{name}_local_currency_name').html($(this).data('currency-name'));
+          });
+          $('.#{name}_modal_exchange_btn').on('click', function(e) {
+            e.preventDefault();
+            $.magnificPopup.close();
+            $('##{name}_exchange_group').show();
+            $('##{name}_local_currency_name').html($(this).data('currency-name'));
+          });
+          $('##{name}_cancel_exchange_btn').on('click', function() {
+            $('##{name}_exchange_group').hide();
+          });
+        });
+      </script>")
+    end
+    raw(result.join("\n"))
   end
 end
