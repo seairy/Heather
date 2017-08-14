@@ -23,6 +23,6 @@ class BaseController < ApplicationController
     end
 
     def check_if_work_currencies_empty
-      redirect_to bulk_new_work_currencies_path if @current_administrator.work_currencies.blank?
+      # redirect_to bulk_new_work_currencies_path if @current_administrator.work_currencies.blank?
     end
 end
