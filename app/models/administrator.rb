@@ -12,8 +12,8 @@ class Administrator < ActiveRecord::Base
       transitions to: :trashed
     end
   end
-  belongs_to :last_used_currency, class_name: 'Currency'
-  belongs_to :last_used_local_currency, class_name: 'Currency'
+  belongs_to :last_used_currency, class_name: 'Currency', optional: true
+  belongs_to :last_used_local_currency, class_name: 'Currency', optional: true
   has_many :work_currencies
   has_many :work_local_currencies
   before_create :hash_password
